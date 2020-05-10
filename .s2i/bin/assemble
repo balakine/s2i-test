@@ -1,0 +1,3 @@
+#!/bin/bash
+echo 'Pre-invocation steps'
+/usr/libexec/s2i/assemble
