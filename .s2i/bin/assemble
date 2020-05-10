@@ -1,11 +1,17 @@
 #!/bin/bash
 echo 'Pre-invocation steps'
 
+pwd
 mkdir -p /opt/oracle
+ls -al /opt
 cd /opt/oracle
+pwd
 wget https://download.oracle.com/otn_software/linux/instantclient/19600/instantclient-basiclite-linux.x64-19.6.0.0.0dbru.zip
+ls -al
 unzip instantclient-basiclite-linux.x64-19.6.0.0.0dbru.zip
+ls -al
+echo $LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/opt/oracle/instantclient_19_6:$LD_LIBRARY_PATH
+echo $LD_LIBRARY_PATH
 
-sudo yum list oracle-instantclient*
 /usr/libexec/s2i/assemble
