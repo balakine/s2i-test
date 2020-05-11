@@ -8,9 +8,6 @@ const port = 8080;
 
 app.get('/', (req, res) => {
   console.log('GET /');
-  console.log('connectString: ', req.query.connectString);
-  console.log('user: ', req.query.user);
-  console.log('password: ', req.query.password);
   oracledb.getConnection({
     user : req.query.user,
     password : req.query.password,
