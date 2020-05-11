@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const oracledb = require('oracledb');
 
@@ -6,6 +8,16 @@ const port = 8080;
 
 app.get('/', (req, res) => {
   console.log('GET /');
+  oracledb.getConnection({
+    user : req.query.user,
+    password : req.query.password,
+    connectString : req.query.connectString,
+  }).then(function (connection) {
+    console.log('Successfully connected');
+    connection.close();
+  }).catch(function (err) {
+    console.log('Error in getConnection', err);
+  });
   res.send('Hello World!');
 });
 
