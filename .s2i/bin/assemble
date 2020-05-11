@@ -1,19 +1,20 @@
 #!/bin/bash
 echo 'Pre-invocation steps'
 
-pwd
 mkdir -p /opt/app-root/oracle
-ls -al /opt/app-root
-cd /opt/app-root/oracle
-pwd
-wget https://download.oracle.com/otn_software/linux/instantclient/19600/instantclient-basiclite-linux.x64-19.6.0.0.0dbru.zip
-ls -al
-unzip instantclient-basiclite-linux.x64-19.6.0.0.0dbru.zip
-ls -al
-echo $LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=/opt/app-root/oracle/instantclient_19_6:$LD_LIBRARY_PATH
-echo $LD_LIBRARY_PATH
-cd /opt/app-root/src
-pwd
+pushd /opt/app-root/oracle
+wget -nv https://download.oracle.com/otn_software/linux/instantclient/19600/instantclient-basiclite-linux.x64-19.6.0.0.0dbru.zip
+unzip instantclient-basiclite-linux.x64-19.6.0.0.0dbru.zip && rm instantclient-basiclite-linux.x64-19.6.0.0.0dbru.zip
+popd
 
 /usr/libexec/s2i/assemble
+rc=$?
+
+if [ $rc -eq 0 ]; then
+  echo 'Post-invocation changes'
+  mv /opt/app-root/src/lib/libaio.so.1.0.1 /opt/app-root/oracle/libaio.so.1
+else
+  echo 'Error: assemble failed!'
+fi
+
+exit $rc
