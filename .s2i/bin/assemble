@@ -14,6 +14,8 @@ if [ $rc -eq 0 ]; then
   echo 'Post-invocation changes'
   mv /opt/app-root/src/lib/libaio.so.1.0.1 /opt/app-root/oracle/instantclient_19_6/libaio.so.1
   chmod a+x /opt/app-root/oracle/instantclient_19_6/libaio.so.1
+  mv /opt/app-root/src/lib/libnsl.so.1 /opt/app-root/oracle/instantclient_19_6/
+  chmod a+x /opt/app-root/oracle/instantclient_19_6/libnsl.so.1
 else
   echo 'Error: assemble failed!'
 fi
